@@ -1,2 +1,7 @@
-"chat.plugins.enabled""chat.plugins.enabled": true
-"chat.plugins.marketplaces": ["RY004/Saturn"]
+{
+	"chat.plugins.enabled": true,
+	"chat.plugins.marketplaces": [
+		"RY004/Saturn"
+	],
+	"github.copilot.chat.cli.mcp.enabled": true
+}

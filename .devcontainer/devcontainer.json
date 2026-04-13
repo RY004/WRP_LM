@@ -1,0 +1,6 @@
+{
+  "name": "WRP_LM",
+  "remoteEnv": {
+    "SATURN_API_KEY": "${containerEnv:SATURN_API_KEY}"
+  }
+}
