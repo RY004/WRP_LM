@@ -1,6 +1,10 @@
 {
   "name": "WRP_LM",
   "remoteEnv": {
-    "SATURN_API_KEY": "${containerEnv:SATURN_API_KEY}"
-  }
+    "SATURN_API_KEY": "${containerEnv:SATURN_API_KEY}",
+    "TAILSCALE_AUTHKEY": "${containerEnv:TAILSCALE_AUTHKEY}",
+    "TAILSCALE_HOSTNAME": "${containerEnv:TAILSCALE_HOSTNAME}"
+  },
+  "postCreateCommand": "bash .devcontainer/install-tailscale.sh",
+  "postStartCommand": "bash .devcontainer/start-tailscale.sh"
 }
