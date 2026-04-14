@@ -11,6 +11,24 @@ LOGIN_RETRY_DELAY_SECONDS="${TAILSCALE_LOGIN_RETRY_DELAY_SECONDS:-5}"
 CONTROLPLANE_URL="${TAILSCALE_CONTROLPLANE_URL:-https://controlplane.tailscale.com/key?v=133}"
 CONTROLPLANE_WAIT_SECONDS="${TAILSCALE_CONTROLPLANE_WAIT_SECONDS:-90}"
 CONTROLPLANE_CHECK_INTERVAL_SECONDS="${TAILSCALE_CONTROLPLANE_CHECK_INTERVAL_SECONDS:-5}"
+SCHEDULE_BACKGROUND_RETRY_ON_FAILURE="${TAILSCALE_SCHEDULE_BACKGROUND_RETRY_ON_FAILURE:-1}"
+
+schedule_background_retry_once() {
+  if [[ "${SCHEDULE_BACKGROUND_RETRY_ON_FAILURE}" != "1" ]]; then
+    return
+  fi
+  if [[ "${TAILSCALE_RETRY_CHILD:-0}" == "1" ]]; then
+    return
+  fi
+  echo "Scheduling background retry for Tailscale login..."
+  nohup env \
+    TAILSCALE_RETRY_CHILD=1 \
+    TAILSCALE_CONTROLPLANE_WAIT_SECONDS="${TAILSCALE_BACKGROUND_CONTROLPLANE_WAIT_SECONDS:-600}" \
+    TAILSCALE_LOGIN_ATTEMPTS="${TAILSCALE_BACKGROUND_LOGIN_ATTEMPTS:-8}" \
+    TAILSCALE_LOGIN_RETRY_DELAY_SECONDS="${TAILSCALE_BACKGROUND_LOGIN_RETRY_DELAY_SECONDS:-10}" \
+    TAILSCALE_UP_TIMEOUT="${TAILSCALE_BACKGROUND_UP_TIMEOUT:-60s}" \
+    bash "$0" >/tmp/tailscale-startup-retry.log 2>&1 &
+}
 
 can_reach_controlplane() {
   curl -4fsS --max-time 5 "${CONTROLPLANE_URL}" >/dev/null 2>&1 || \
@@ -54,7 +72,8 @@ waited=0
 while ! can_reach_controlplane; do
   if [[ "${waited}" -ge "${CONTROLPLANE_WAIT_SECONDS}" ]]; then
     echo "controlplane.tailscale.com is still unreachable after ${CONTROLPLANE_WAIT_SECONDS}s"
-    echo "Skipping tailscale up for now; startup will retry on next container start"
+    schedule_background_retry_once
+    echo "Skipping immediate tailscale up; background retry has been scheduled"
     exit 1
   fi
   echo "Control plane not reachable yet; retrying in ${CONTROLPLANE_CHECK_INTERVAL_SECONDS}s..."
@@ -86,6 +105,7 @@ while [[ "${attempt}" -le "${MAX_LOGIN_ATTEMPTS}" ]]; do
 done
 
 echo "Tailscale failed to connect after ${MAX_LOGIN_ATTEMPTS} attempts."
+schedule_background_retry_once
 echo "Latest tailscale status:"
 sudo tailscale --socket="${SOCKET}" status || true
 echo "Health summary:"
