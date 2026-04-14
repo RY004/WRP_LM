@@ -7,6 +7,15 @@ STATE="/var/lib/tailscale/tailscaled.state"
 HOSTNAME="${TAILSCALE_HOSTNAME:-codespace-${CODESPACE_NAME:-wrp-lm}}"
 UP_TIMEOUT="${TAILSCALE_UP_TIMEOUT:-45s}"
 MAX_LOGIN_ATTEMPTS="${TAILSCALE_LOGIN_ATTEMPTS:-3}"
+LOGIN_RETRY_DELAY_SECONDS="${TAILSCALE_LOGIN_RETRY_DELAY_SECONDS:-5}"
+CONTROLPLANE_URL="${TAILSCALE_CONTROLPLANE_URL:-https://controlplane.tailscale.com/key?v=133}"
+CONTROLPLANE_WAIT_SECONDS="${TAILSCALE_CONTROLPLANE_WAIT_SECONDS:-90}"
+CONTROLPLANE_CHECK_INTERVAL_SECONDS="${TAILSCALE_CONTROLPLANE_CHECK_INTERVAL_SECONDS:-5}"
+
+can_reach_controlplane() {
+  curl -4fsS --max-time 5 "${CONTROLPLANE_URL}" >/dev/null 2>&1 || \
+    curl -fsS --max-time 5 "${CONTROLPLANE_URL}" >/dev/null 2>&1
+}
 
 if ! command -v tailscaled >/dev/null 2>&1 || ! command -v tailscale >/dev/null 2>&1; then
   echo "Tailscale is not installed yet; run postCreateCommand or execute .devcontainer/install-tailscale.sh"
@@ -40,6 +49,19 @@ if sudo tailscale --socket="${SOCKET}" ip -4 >/dev/null 2>&1; then
   exit 0
 fi
 
+echo "Checking Tailscale control-plane reachability..."
+waited=0
+while ! can_reach_controlplane; do
+  if [[ "${waited}" -ge "${CONTROLPLANE_WAIT_SECONDS}" ]]; then
+    echo "controlplane.tailscale.com is still unreachable after ${CONTROLPLANE_WAIT_SECONDS}s"
+    echo "Skipping tailscale up for now; startup will retry on next container start"
+    exit 1
+  fi
+  echo "Control plane not reachable yet; retrying in ${CONTROLPLANE_CHECK_INTERVAL_SECONDS}s..."
+  sleep "${CONTROLPLANE_CHECK_INTERVAL_SECONDS}"
+  waited=$((waited + CONTROLPLANE_CHECK_INTERVAL_SECONDS))
+done
+
 echo "Bringing up Tailscale as ${HOSTNAME}..."
 attempt=1
 while [[ "${attempt}" -le "${MAX_LOGIN_ATTEMPTS}" ]]; do
@@ -56,6 +78,9 @@ while [[ "${attempt}" -le "${MAX_LOGIN_ATTEMPTS}" ]]; do
   if sudo tailscale --socket="${SOCKET}" ip -4 >/dev/null 2>&1; then
     echo "Tailscale is up"
     exit 0
+  fi
+  if [[ "${attempt}" -lt "${MAX_LOGIN_ATTEMPTS}" ]]; then
+    sleep "${LOGIN_RETRY_DELAY_SECONDS}"
   fi
   attempt=$((attempt + 1))
 done
