@@ -1,25 +1,27 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-if [[ -z "${TAILSCALE_AUTHKEY:-}" ]]; then
-  echo "TAILSCALE_AUTHKEY is not set; skipping Tailscale startup"
+EFFECTIVE_TAILSCALE_AUTHKEY="${TAILSCALE_AUTHKEY_V2:-${TAILSCALE_AUTHKEY:-}}"
+
+if [[ -z "${EFFECTIVE_TAILSCALE_AUTHKEY}" ]]; then
+  echo "TAILSCALE_AUTHKEY_V2 (or fallback TAILSCALE_AUTHKEY) is not set; skipping Tailscale startup"
   exit 0
 fi
 
-if [[ "${TAILSCALE_AUTHKEY}" == tskey-api-* ]]; then
-  echo "TAILSCALE_AUTHKEY looks like a Tailscale API key (tskey-api-*), not an auth key."
-  echo "Create a reusable auth key in Tailscale Admin > Settings > Keys and store it as TAILSCALE_AUTHKEY."
+if [[ "${EFFECTIVE_TAILSCALE_AUTHKEY}" == tskey-api-* ]]; then
+  echo "Provided Tailscale key looks like an API key (tskey-api-*), not an auth key."
+  echo "Create a reusable auth key in Tailscale Admin > Settings > Keys and store it as TAILSCALE_AUTHKEY_V2."
   exit 1
 fi
 
-if [[ "${TAILSCALE_AUTHKEY}" != tskey-auth-* ]]; then
-  echo "TAILSCALE_AUTHKEY format is unexpected. Expected an auth key starting with tskey-auth-."
+if [[ "${EFFECTIVE_TAILSCALE_AUTHKEY}" != tskey-auth-* ]]; then
+  echo "Provided Tailscale key format is unexpected. Expected an auth key starting with tskey-auth-."
   exit 1
 fi
 
-if [[ "${TAILSCALE_AUTHKEY}" == *CNTRL-* ]]; then
-  echo "TAILSCALE_AUTHKEY appears to be a control/API-style key and is invalid for tailscale up."
-  echo "Create a new reusable auth key in Tailscale Admin > Settings > Keys and replace TAILSCALE_AUTHKEY."
+if [[ "${EFFECTIVE_TAILSCALE_AUTHKEY}" == *CNTRL-* ]]; then
+  echo "Provided Tailscale key appears to be a control/API-style key and is invalid for tailscale up."
+  echo "Create a new reusable auth key in Tailscale Admin > Settings > Keys and replace TAILSCALE_AUTHKEY_V2."
   exit 1
 fi
 
@@ -45,7 +47,7 @@ fi
 
 echo "Bringing up Tailscale as ${HOSTNAME}..."
 sudo tailscale --socket="${SOCKET}" up \
-  --authkey="${TAILSCALE_AUTHKEY}" \
+  --authkey="${EFFECTIVE_TAILSCALE_AUTHKEY}" \
   --hostname="${HOSTNAME}" \
   --accept-routes \
   --accept-dns=false
