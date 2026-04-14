@@ -3,7 +3,6 @@
   "remoteEnv": {
     "SATURN_API_KEY": "${containerEnv:SATURN_API_KEY}",
     "TAILSCALE_AUTHKEY_V2": "${containerEnv:TAILSCALE_AUTHKEY_V2}",
-    "TAILSCALE_AUTHKEY": "${containerEnv:TAILSCALE_AUTHKEY}",
     "TAILSCALE_HOSTNAME": "${containerEnv:TAILSCALE_HOSTNAME}"
   },
   "postCreateCommand": "bash .devcontainer/install-tailscale.sh",

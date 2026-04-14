@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-EFFECTIVE_TAILSCALE_AUTHKEY="${TAILSCALE_AUTHKEY_V2:-${TAILSCALE_AUTHKEY:-}}"
+EFFECTIVE_TAILSCALE_AUTHKEY="${TAILSCALE_AUTHKEY_V2:-}"
 
 if [[ -z "${EFFECTIVE_TAILSCALE_AUTHKEY}" ]]; then
-  echo "TAILSCALE_AUTHKEY_V2 (or fallback TAILSCALE_AUTHKEY) is not set; skipping Tailscale startup"
-  exit 0
+  echo "TAILSCALE_AUTHKEY_V2 is not set (or is empty); skipping Tailscale startup"
+  exit 1
 fi
 
 if [[ "${EFFECTIVE_TAILSCALE_AUTHKEY}" == tskey-api-* ]]; then
