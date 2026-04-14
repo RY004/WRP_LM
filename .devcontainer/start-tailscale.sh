@@ -33,12 +33,6 @@ if [[ "${EFFECTIVE_TAILSCALE_AUTHKEY}" != tskey-auth-* ]]; then
   exit 0
 fi
 
-if [[ "${EFFECTIVE_TAILSCALE_AUTHKEY}" == *CNTRL-* ]]; then
-  echo "Provided Tailscale key appears to be a control/API-style key and is invalid for tailscale up."
-  echo "Create a new reusable auth key in Tailscale Admin > Settings > Keys and replace TAILSCALE_AUTHKEY_V2."
-  exit 0
-fi
-
 if sudo tailscale --socket="${SOCKET}" ip -4 >/dev/null 2>&1; then
   echo "Tailscale already connected"
   exit 0
