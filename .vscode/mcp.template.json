@@ -1,0 +1,28 @@
+{
+"servers": {
+"pipeline": {
+"type": "http",
+"url": "http://100.64.31.111:8003/mcp",
+"headers": {
+"Authorization": "Bearer ${env:SATURN_API_KEY}",
+"X-Saturn-Api-Key": "${env:SATURN_API_KEY}"
+}
+},
+"sec": {
+"type": "http",
+"url": "http://100.64.31.111:8001/mcp",
+"headers": {
+"Authorization": "Bearer ${env:SATURN_API_KEY}",
+"X-Saturn-Api-Key": "${env:SATURN_API_KEY}"
+}
+},
+"gp": {
+"type": "http",
+"url": "http://100.64.31.111:8002/mcp",
+"headers": {
+"Authorization": "Bearer ${env:SATURN_API_KEY}",
+"X-Saturn-Api-Key": "${env:SATURN_API_KEY}"
+}
+}
+}
+}

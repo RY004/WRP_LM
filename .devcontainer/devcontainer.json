@@ -6,5 +6,5 @@
     "TAILSCALE_HOSTNAME": "${containerEnv:TAILSCALE_HOSTNAME}"
   },
   "postCreateCommand": "bash .devcontainer/install-tailscale.sh",
-  "postStartCommand": "bash .devcontainer/start-tailscale.sh"
+  "postStartCommand": "bash .devcontainer/hydrate-mcp-auth.sh && bash .devcontainer/start-tailscale.sh"
 }
