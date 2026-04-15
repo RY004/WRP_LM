@@ -71,18 +71,17 @@ temp/
 .cache/
 
 # Local runtime data and filesystem-backed blob storage
-data/
-.data/
-blobs/
-.blobs/
-uploads/
-exports/
-storage/
-.storage/
-var/
+/data/
+/.data/
+/blobs/
+/.blobs/
+/uploads/
+/exports/
+/storage/
+/.storage/
+/var/
 dump.rdb
 
 # Local infra volumes
 infra/postgres/data/
 infra/redis/data/
-
