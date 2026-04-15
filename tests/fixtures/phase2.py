@@ -6,7 +6,9 @@ from sqlalchemy.orm import Session, sessionmaker
 
 from saturn.access.db_models import AclGrant, ProjectMembership
 from saturn.api.app import create_app
+from saturn.artifacts.db_models import Artifact, ArtifactVersion
 from saturn.bootstrap.settings import Settings
+from saturn.collaboration.db_models import ArtifactComment, PhaseLock, PresenceMarker, StageComment
 from saturn.db.base import Base
 from saturn.identity.db_models import GoogleIdentity, OrgMembership, Organization, User, UserSession
 from saturn.pipeline.db_models import PipelineApproval, PipelineDecision, PipelineState
@@ -24,6 +26,12 @@ _MODELS = (
     PipelineState,
     PipelineDecision,
     PipelineApproval,
+    Artifact,
+    ArtifactVersion,
+    ArtifactComment,
+    StageComment,
+    PresenceMarker,
+    PhaseLock,
 )
 
 
