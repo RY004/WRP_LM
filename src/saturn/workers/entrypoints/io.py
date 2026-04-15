@@ -1,6 +1,6 @@
 """I/O worker entrypoint."""
 
-from cortex.workers.queues import IO_QUEUES
+from saturn.workers.queues import IO_QUEUES
 
 
 def main() -> tuple[str, ...]:

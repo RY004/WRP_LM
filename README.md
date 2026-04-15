@@ -6,19 +6,19 @@ This repository is the implementation root for the Saturn v1 platform. The curre
 
 ## Locked Platform Direction
 
-- FastAPI control plane rooted in `src/cortex`
+- FastAPI control plane rooted in `src/saturn`
 - PostgreSQL with `pgvector`
 - Redis-backed worker runtime
 - Google OAuth authentication
 - RBAC plus project-level ACL authorization
 - Native Notion OAuth/API ingestion
 - Queue-driven parse, embed, reindex, sync, export, remediation, and notification work
-- S3-compatible production blob storage behind `src/cortex/storage/base.py`
+- S3-compatible production blob storage behind `src/saturn/storage/base.py`
 - Normalized JSON as the canonical artifact format, with markdown as a rendered projection
 
 ## Repository Layout
 
-- `src/cortex/` contains the backend package and worker entrypoints.
+- `src/saturn/` contains the backend package and worker entrypoints.
 - `apps/web/` contains the Next.js product surface.
 - `apps/vscode/` contains the VS Code integration surface.
 - `migrations/` contains Alembic migration scaffolding.

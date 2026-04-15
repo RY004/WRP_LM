@@ -1,6 +1,6 @@
 """Orchestrator worker entrypoint."""
 
-from cortex.workers.queues import ORCHESTRATOR_QUEUES
+from saturn.workers.queues import ORCHESTRATOR_QUEUES
 
 
 def main() -> tuple[str, ...]:

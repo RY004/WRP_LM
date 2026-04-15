@@ -5,4 +5,4 @@ ENV PYTHONPATH=/app/src
 
 COPY . /app
 
-CMD ["python", "-m", "cortex.workers.entrypoints.cpu"]
+CMD ["python", "-m", "saturn.workers.entrypoints.cpu"]

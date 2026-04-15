@@ -1,6 +1,6 @@
 """CPU worker entrypoint."""
 
-from cortex.workers.queues import CPU_QUEUES
+from saturn.workers.queues import CPU_QUEUES
 
 
 def main() -> tuple[str, ...]:

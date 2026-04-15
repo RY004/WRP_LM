@@ -3,7 +3,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from cortex.bootstrap.settings import get_settings
+from saturn.bootstrap.settings import get_settings
 
 
 def create_session_factory() -> sessionmaker[Session]:

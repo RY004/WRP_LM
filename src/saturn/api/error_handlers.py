@@ -3,7 +3,7 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 
-from cortex.shared.exceptions import SaturnError
+from saturn.shared.exceptions import SaturnError
 
 
 def register_error_handlers(app: FastAPI) -> None:

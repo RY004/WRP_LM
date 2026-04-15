@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI
 
-from cortex.api.error_handlers import register_error_handlers
+from saturn.api.error_handlers import register_error_handlers
 
 
 def create_app() -> FastAPI:
