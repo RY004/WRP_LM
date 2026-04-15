@@ -11,13 +11,11 @@ from saturn.bootstrap.settings import Settings, get_settings
 
 def create_db_engine(settings: Settings | None = None) -> Engine:
     settings = settings or get_settings()
-    return create_engine(
-        settings.database_url,
-        echo=settings.database_echo,
-        pool_size=settings.database_pool_size,
-        max_overflow=settings.database_max_overflow,
-        future=True,
-    )
+    kwargs: dict[str, object] = {"echo": settings.database_echo, "future": True}
+    if not settings.database_url.startswith("sqlite"):
+        kwargs["pool_size"] = settings.database_pool_size
+        kwargs["max_overflow"] = settings.database_max_overflow
+    return create_engine(settings.database_url, **kwargs)
 
 
 def create_session_factory(

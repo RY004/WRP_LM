@@ -13,6 +13,7 @@ class RequestContextMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next) -> Response:
         request_id = request.headers.get("X-Request-ID", new_id())
         request.state.request_id = request_id
+        request.state.auth_context = None
         started = perf_counter()
         response = await call_next(request)
         response.headers["X-Request-ID"] = request_id

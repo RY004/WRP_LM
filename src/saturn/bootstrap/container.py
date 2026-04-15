@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass, field
 
+from sqlalchemy.orm import Session, sessionmaker
+
 from saturn.bootstrap.settings import Settings
 from saturn.db.session import create_session_factory
 from saturn.shared.exceptions import ConfigurationError
@@ -15,15 +17,18 @@ from saturn.workers.runtime.settings import WorkerRuntimeSettings
 @dataclass(slots=True)
 class ApplicationContainer:
     settings: Settings
-    _session_factory: object | None = field(default=None, init=False, repr=False)
+    _session_factory: sessionmaker[Session] | None = field(default=None, init=False, repr=False)
     _storage: StorageBackend | None = field(default=None, init=False, repr=False)
     _worker_broker: WorkerBroker | None = field(default=None, init=False, repr=False)
 
     @property
-    def session_factory(self) -> object:
+    def session_factory(self) -> sessionmaker[Session]:
         if self._session_factory is None:
             self._session_factory = create_session_factory(self.settings)
         return self._session_factory
+
+    def set_session_factory(self, factory: sessionmaker[Session]) -> None:
+        self._session_factory = factory
 
     @property
     def storage(self) -> StorageBackend:

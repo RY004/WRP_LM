@@ -3,6 +3,7 @@
 import pytest
 
 from saturn.bootstrap.settings import get_settings
+from tests.fixtures.phase2 import phase2_app, phase2_session_factory  # noqa: F401
 
 
 @pytest.fixture()
