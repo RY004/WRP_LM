@@ -10,6 +10,16 @@ from saturn.artifacts.db_models import Artifact, ArtifactVersion
 from saturn.bootstrap.settings import Settings
 from saturn.collaboration.db_models import ArtifactComment, PhaseLock, PresenceMarker, StageComment
 from saturn.db.base import Base
+from saturn.documents.db_models import (
+    Document,
+    DocumentChunk,
+    DocumentParseJob,
+    DocumentReindexRequest,
+    DocumentSection,
+    DocumentSource,
+    DocumentVersion,
+    ParseDiagnostic,
+)
 from saturn.identity.db_models import GoogleIdentity, OrgMembership, Organization, User, UserSession
 from saturn.pipeline.db_models import PipelineApproval, PipelineDecision, PipelineState
 from saturn.projects.db_models import Project
@@ -32,6 +42,14 @@ _MODELS = (
     StageComment,
     PresenceMarker,
     PhaseLock,
+    Document,
+    DocumentSource,
+    DocumentVersion,
+    DocumentSection,
+    DocumentChunk,
+    ParseDiagnostic,
+    DocumentParseJob,
+    DocumentReindexRequest,
 )
 
 

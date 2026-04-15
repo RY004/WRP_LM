@@ -9,6 +9,7 @@ from saturn.access.context import AuthContext
 from saturn.bootstrap.container import ApplicationContainer
 from saturn.bootstrap.settings import Settings, get_settings
 from saturn.identity.service import IdentityService
+from saturn.storage.base import StorageBackend
 
 
 def get_container(request: Request) -> ApplicationContainer:
@@ -36,6 +37,13 @@ def get_db_session(container: ContainerDep):
 
 
 DbSessionDep = Annotated[Session, Depends(get_db_session)]
+
+
+def get_storage_backend(container: ContainerDep) -> StorageBackend:
+    return container.storage
+
+
+StorageDep = Annotated[StorageBackend, Depends(get_storage_backend)]
 
 
 def get_auth_context(
