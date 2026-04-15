@@ -1,0 +1,1 @@
+"""Docling parser adapter scaffold."""

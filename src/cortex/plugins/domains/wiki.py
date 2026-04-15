@@ -1,0 +1,1 @@
+"""Wiki plugin domain scaffold."""

@@ -1,0 +1,1 @@
+"""OpenVINO embedding backend scaffold."""

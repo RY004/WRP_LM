@@ -1,0 +1,1 @@
+"""MarkItDown fallback parser scaffold."""

@@ -1,0 +1,1 @@
+"""Normalized artifact validation scaffold."""

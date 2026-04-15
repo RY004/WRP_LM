@@ -1,0 +1,88 @@
+# Secrets and local environment
+.env
+.env.*
+!.env.example
+.python-version
+.secrets/
+
+# Workspace-local MCP/auth config
+.vscode/mcp.json
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+*~
+*.swp
+*.swo
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.pyre/
+.hypothesis/
+.tox/
+.nox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+dist/
+build/
+site/
+.eggs/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node / frontend / VS Code extension
+node_modules/
+.pnpm-store/
+.npm/
+.yarn/
+.next/
+.turbo/
+out/
+coverage/
+*.tsbuildinfo
+*.vsix
+.vscode-test/
+playwright-report/
+test-results/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Logs and temp files
+*.log
+logs/
+tmp/
+temp/
+.tmp/
+.cache/
+
+# Local runtime data and filesystem-backed blob storage
+data/
+.data/
+blobs/
+.blobs/
+uploads/
+exports/
+storage/
+.storage/
+var/
+dump.rdb
+
+# Local infra volumes
+infra/postgres/data/
+infra/redis/data/
+

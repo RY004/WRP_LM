@@ -1,0 +1,1 @@
+"""Document fixtures scaffold."""

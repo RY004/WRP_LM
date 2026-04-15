@@ -1,0 +1,1 @@
+"""Artifact retrieval source scaffold."""

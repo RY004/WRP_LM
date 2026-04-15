@@ -1,0 +1,1 @@
+"""Plugin egress policy scaffold."""

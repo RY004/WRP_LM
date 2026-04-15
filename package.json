@@ -1,0 +1,10 @@
+{
+  "name": "saturn-workspace",
+  "private": true,
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "web:dev": "pnpm --filter saturn-web dev",
+    "web:build": "pnpm --filter saturn-web build",
+    "vscode:compile": "pnpm --filter saturn-vscode compile"
+  }
+}

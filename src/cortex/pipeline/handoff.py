@@ -1,0 +1,1 @@
+"""Pipeline handoff packet scaffold."""

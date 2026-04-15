@@ -1,0 +1,1 @@
+"""Custom DB types scaffold."""

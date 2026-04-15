@@ -1,0 +1,1 @@
+"""Reindex job scaffold."""

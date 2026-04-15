@@ -1,0 +1,13 @@
+{
+  "name": "saturn-vscode",
+  "displayName": "Saturn",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/extension.js",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "scripts": {
+    "compile": "tsc -p tsconfig.json"
+  }
+}

@@ -1,0 +1,1 @@
+"""Shared event envelope scaffold."""

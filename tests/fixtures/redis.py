@@ -1,0 +1,1 @@
+"""Redis fixtures scaffold."""

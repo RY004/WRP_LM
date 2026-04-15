@@ -1,0 +1,1 @@
+"""RAG MCP toolset scaffold."""

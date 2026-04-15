@@ -1,0 +1,1 @@
+"""Artifact merge summary scaffolding."""

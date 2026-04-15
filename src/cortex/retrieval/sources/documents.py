@@ -1,0 +1,1 @@
+"""Document retrieval source scaffold."""

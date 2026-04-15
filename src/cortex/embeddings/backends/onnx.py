@@ -1,0 +1,1 @@
+"""ONNX embedding backend scaffold."""

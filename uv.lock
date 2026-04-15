@@ -1,0 +1,2 @@
+# Placeholder lockfile scaffold.
+# Generate a concrete lockfile with `uv lock` in an environment where `uv` is installed.

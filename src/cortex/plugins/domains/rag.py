@@ -1,0 +1,1 @@
+"""RAG plugin domain scaffold."""

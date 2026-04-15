@@ -1,0 +1,1 @@
+"""Pipeline exit criteria scaffold."""

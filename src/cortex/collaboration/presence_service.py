@@ -1,0 +1,1 @@
+"""Presence tracking service scaffold."""

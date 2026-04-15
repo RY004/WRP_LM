@@ -1,0 +1,1 @@
+"""Pipeline plugin domain scaffold."""
