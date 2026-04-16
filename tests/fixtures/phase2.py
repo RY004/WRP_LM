@@ -20,6 +20,7 @@ from saturn.documents.db_models import (
     DocumentVersion,
     ParseDiagnostic,
 )
+from saturn.embeddings.db_models import EmbeddingJob, EmbeddingRecord
 from saturn.identity.db_models import GoogleIdentity, OrgMembership, Organization, User, UserSession
 from saturn.pipeline.db_models import PipelineApproval, PipelineDecision, PipelineState
 from saturn.projects.db_models import Project
@@ -50,6 +51,8 @@ _MODELS = (
     ParseDiagnostic,
     DocumentParseJob,
     DocumentReindexRequest,
+    EmbeddingRecord,
+    EmbeddingJob,
 )
 
 

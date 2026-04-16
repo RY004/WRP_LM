@@ -1,1 +1,3 @@
-"""Document retrieval source scaffold."""
+"""Document retrieval source helpers."""
+
+DOCUMENT_SOURCE_TYPE = "document_chunk"
