@@ -29,6 +29,17 @@ from saturn.integrations.notion.db_models import (
 )
 from saturn.identity.db_models import GoogleIdentity, OrgMembership, Organization, User, UserSession
 from saturn.pipeline.db_models import PipelineApproval, PipelineDecision, PipelineState
+from saturn.plugins.db_models import (
+    Plugin,
+    PluginCapability,
+    PluginEgressDecision,
+    PluginEgressPolicy,
+    PluginExecution,
+    PluginInstallation,
+    PluginVersion,
+    VSCodeTokenExchange,
+    VSCodeWorkspaceSession,
+)
 from saturn.projects.db_models import Project
 
 _MODELS = (
@@ -63,6 +74,15 @@ _MODELS = (
     NotionAccount,
     NotionSyncTarget,
     NotionSyncJob,
+    Plugin,
+    PluginVersion,
+    PluginCapability,
+    PluginInstallation,
+    PluginExecution,
+    PluginEgressPolicy,
+    PluginEgressDecision,
+    VSCodeTokenExchange,
+    VSCodeWorkspaceSession,
 )
 
 
