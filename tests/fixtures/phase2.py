@@ -21,6 +21,12 @@ from saturn.documents.db_models import (
     ParseDiagnostic,
 )
 from saturn.embeddings.db_models import EmbeddingJob, EmbeddingRecord
+from saturn.integrations.notion.db_models import (
+    NotionAccount,
+    NotionOAuthState,
+    NotionSyncJob,
+    NotionSyncTarget,
+)
 from saturn.identity.db_models import GoogleIdentity, OrgMembership, Organization, User, UserSession
 from saturn.pipeline.db_models import PipelineApproval, PipelineDecision, PipelineState
 from saturn.projects.db_models import Project
@@ -53,6 +59,10 @@ _MODELS = (
     DocumentReindexRequest,
     EmbeddingRecord,
     EmbeddingJob,
+    NotionOAuthState,
+    NotionAccount,
+    NotionSyncTarget,
+    NotionSyncJob,
 )
 
 
